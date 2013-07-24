@@ -7,16 +7,18 @@
 # All rights reserved - Do Not Redistribute
 #
 
-#
-# Install httpd
-#
-package "httpd-devel"
+package "httpd-devel" do
+    action [:install, :upgrade]
+end
 
-#
-# Start httpd
-#
+template "/etc/httpd/conf/httpd.conf" do
+  source "httpd.conf.erb"
+  owner "root"
+  group "root"
+  mode 00644
+end
+
 service "httpd" do
-  supports :restart => true, :reload => true
-  action [:enable, :start]
+  action [:enable, :start, :reload]
 end
 

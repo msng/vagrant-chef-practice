@@ -7,13 +7,15 @@
 # All rights reserved - Do Not Redistribute
 #
 
-#
-# Install PHP
-#
 %w{php-devel php-gd php-mbstring php-mcrypt php-mysql php-pecl-apc php-pdo}.each do |pkg|
   package pkg do
-    # options "--enablerepo=epel"
     action [:install, :upgrade]
   end
 end
 
+template "/etc/php.ini" do
+  source "php.ini.erb"
+  owner "root"
+  group "root"
+  mode 00644
+end
