@@ -22,6 +22,9 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "yum::epel"
     chef.add_recipe "yum::remi"
     chef.add_recipe "base"
+    chef.add_recipe "apache"
+    chef.add_recipe "mysql"
+    chef.add_recipe "php"
   end
 
 end

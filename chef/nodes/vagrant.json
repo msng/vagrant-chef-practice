@@ -1,1 +1,1 @@
-{"run_list":["yum::epel", "yum::remi", "base"]}
+{    "run_list":[        "yum::epel",        "yum::remi",        "base",        "apache",        "mysql",        "php"    ]}

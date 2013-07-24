@@ -14,12 +14,8 @@
 #
 # Install packages
 #
-%w{git vim-enhanced zsh httpd-devel php-pecl-apc php-devel php-gd php-mbstring php-mcrypt php-mysql php-pdo mysql-server}.each do |pkg|
-  package pkg do
-    options "--enablerepo=remi"
-    options "--enablerepo=epel"
-    action [:install, :upgrade]
-  end
+%w{git vim-enhanced zsh}.each do |pkg|
+  package pkg
 end
 
 #
@@ -36,16 +32,5 @@ end
 execute "service iptables restart" do
   user "root"
   command "service iptables restart"
-end
-
-
-#
-# Start httpd and mysqld
-#
-%w{httpd mysqld}.each do |service_name|
-    service service_name do
-      supports :status => true, :restart => true, :reload => true
-      action [:enable, :start]
-    end
 end
 
