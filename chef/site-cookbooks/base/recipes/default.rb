@@ -7,6 +7,10 @@
 # All rights reserved - Do Not Redistribute
 #
 
+class Chef::Recipe
+  include Opscode::OpenSSL::Password
+end
+
 # execute "yum update" do
 #   command "yum -y update"
 # end

@@ -19,8 +19,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "./chef/site-cookbooks"
-    chef.add_recipe "yum::epel"
     chef.add_recipe "yum::remi"
+    chef.add_recipe "openssl"
     chef.add_recipe "base"
     chef.add_recipe "php"
     chef.add_recipe "apache"

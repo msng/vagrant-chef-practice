@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+mysql_root_password = secure_password
+
 include_recipe "yum::remi"
 
 package "mysql-server" do
@@ -36,7 +38,12 @@ end
 execute 'mysql_secure_installation' do
   user "root"
   command <<-EOH
+    echo '#{mysql_root_password}' > /root/.mysql_secret
     mysql -uroot <<EOF && touch /var/chef/.mysql_secure_installation_done
+
+-- Change the root password
+UPDATE mysql.user SET Password=PASSWORD('#{mysql_root_password}') WHERE User='root';
+FLUSH PRIVILEGES;
 
 -- Remove anonymous users
 DELETE FROM mysql.user WHERE User='';
@@ -57,6 +64,3 @@ EOF
   not_if { File.exists?('/var/chef/.mysql_secure_installation_done') }
 end
 
-# --Change the root password
-# UPDATE mysql.user SET Password=PASSWORD('hoge') WHERE User='root'
-# FLUSH PRIVILEGES
